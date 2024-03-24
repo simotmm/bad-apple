@@ -14,7 +14,6 @@
 #define WAIT 23
 #define LARGHEZZA 80
 #define DEBUG 1
-#define SCRIVIMIPS 0
 #define FPS 30
 
 int getTotFrames(char *dir);
@@ -23,8 +22,7 @@ char **saveFrames(char *dir, int totFrames);
 void play(char **framse, int totFrames);
 void progressBar(int corrente, int tot, int r, int frames);
 
-int main()
-{
+int main(){
     int totFrames;
     char **frames;
     totFrames=getTotFrames(DIRECTORY);
@@ -45,33 +43,10 @@ int main()
     return 0;
 }
 
-void play(char **frames, int totFrames)
-{
+void play(char **frames, int totFrames){
     int i, j;
 
-    #if SCRIVIMIPS
-    FILE *o=fopen("BadAppleMIPS.asm", "w");
-    fprintf(o, "frames: .asciiz \"");
-    #endif // SCRIVIMIPS
-
-
-
-    for(i=INIZIO;i<totFrames;i++)
-    {
-        #if SCRIVIMIPS
-        printf("extracting frame #%d to 'BadAppleMIPS.asm'\r", i);
-        for(j=0;j<strlen(frames[i]);j++)
-        {
-
-            if(frames[i][j]=='\n')
-                fprintf(o, "\\n");
-            else
-                fprintf(o, "%c", frames[i][j]);
-        }
-        //fprintf(o, "%s\\n", frames[i]);
-        continue;
-        #endif // SCRIVIMIPS
-
+    for(i=INIZIO;i<totFrames;i++){
         #if DEBUG
         char framesCount[100];
         sprintf(framesCount, "(frame: %d/%d) \n", i+1, totFrames);
@@ -87,31 +62,19 @@ void play(char **frames, int totFrames)
         printf("%s\n", frames[i]);
         _sleep(WAIT);
         #endif
-
-
     }
-
-    #if SCRIVIMIPS
-    fprintf(o, "\"");
-    fprintf(o, "\n.text\n.globl main\n.ent main\nmain:\nli $v0, 4\nla $a0, frames\nsyscall\nli $v0, 10\nsyscall\n.end main");
-    fclose(o);
-    #endif // SCRIVIMIPS
-
 }
 
-void progressBar(int corrente, int tot, int r, int frames)
-{
+void progressBar(int corrente, int tot, int r, int frames){
     corrente++;
     int cost, x;
-
     int i;
     float p = (float)((float)corrente/tot)*100;
 
-    if(r==0)
-    {
+    if(r==0){
         cost=0;
         x=(corrente*(LEN-cost))/tot;
-
+        
         printf("[");
         for(i=0;i<=x;i++)
             printf("#");
@@ -119,8 +82,7 @@ void progressBar(int corrente, int tot, int r, int frames)
             printf("-");
         printf("](%.2f%%)\n", p);
     }
-    else if(r==1 && frames==1)
-    {
+    else if(r==1 && frames==1){
         cost=25;
         x=(corrente*(LEN-cost))/tot;
 
@@ -134,27 +96,23 @@ void progressBar(int corrente, int tot, int r, int frames)
     }
 }
 
-char **saveFrames(char *dir, int totFrames)
-{
+char **saveFrames(char *dir, int totFrames){
     int i;
     char **frames;
     frames=calloc(totFrames, sizeof(char*));
 
-    for(i=INIZIO;i<totFrames;i++)
-    {
+    for(i=INIZIO;i<totFrames;i++){
         frames[i]=saveFrame(i, DIRECTORY);
         #if DEBUG
         progressBar(i, totFrames, 1, 1);
         #endif // DEBUG
     }
     printf("\n");
-
-
+    
     return frames;
 }
 
-char *saveFrame(int i, char *dir)
-{
+char *saveFrame(int i, char *dir){
     i++;
     char fileName[200], suffix[10];
     strcpy(fileName, dir);
@@ -172,12 +130,10 @@ char *saveFrame(int i, char *dir)
     fclose(f);
 
     string[fsize] = '\0';
-
     return string;
 }
 
-int getTotFrames(char *dir)
-{
+int getTotFrames(char *dir){
     char fileName[200];
     strcpy(fileName, dir);
     strcat(fileName, FILETOT);

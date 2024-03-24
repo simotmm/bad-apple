@@ -4,7 +4,6 @@
 #include <ctype.h>
 
 #define PROJECTNAME /*"[C Project: 'Bad Apple']"*/ "C Project - '[Touhou] Bad Apple!! PV [Shadow] - [ASCII]'"
-//#define DIRECTORY "C:/Users/by_si/Desktop/Simone/07. Progetti/C/CodeBlocks/Bad Apple/Bad Apple (my project)/res"
 #define DIRECTORY "res"
 #define PREFISSO "/BA"
 #define FILETOT "/numberOfFrames.txt"

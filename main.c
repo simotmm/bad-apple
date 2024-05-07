@@ -7,13 +7,13 @@
 #define DIRECTORY "res"
 #define PREFISSO "/BA"
 #define FILETOT "/numberOfFrames.txt"
-#define FILEMUSIC "/BA.wav"
+//#define FILEMUSIC "/BA.wav"
 #define LEN 68
 #define INIZIO 0
 #define WAIT 23
 #define LARGHEZZA 80
 #define DEBUG 1
-#define FPS 30
+//#define FPS 30
 
 int getTotFrames(char *dir);
 char *saveFrame(int i, char *dir);
